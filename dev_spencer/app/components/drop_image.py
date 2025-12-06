@@ -6,7 +6,7 @@ import ids
 def render():
     return dbc.Col(
         [
-            html.H3("Drop image from mall dataset below", style={"textAlign": "center"}),
+            html.H3("Drop an image from mall dataset below", style={"textAlign": "center"}),
             dcc.Upload(
                 id=ids.UPLOAD_IMAGE,
                 children=html.Div(["Drag and Drop or ", html.A("Select .jpg file")]),
@@ -19,6 +19,7 @@ def render():
                     "borderRadius": "5px",
                     "textAlign": "center",
                     "margin": "10px",
+                    'backgroundColor':'#e8e8e8'
                 },
                 # Allow multiple files to be uploaded
                 multiple=False,

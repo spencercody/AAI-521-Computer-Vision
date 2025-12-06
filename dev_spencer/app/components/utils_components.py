@@ -2,7 +2,6 @@ import base64
 import io
 import numpy as np
 from PIL import Image
-import cv2
 import os
 import pandas as pd
 from dash import html
@@ -33,13 +32,9 @@ def encode_image(pil_img):
 
 
 def manual_img_preprocessing(pil_img):
-    print(type(pil_img))
-    
     IMAGE_SIZE = (128, 128)
     pil_img = pil_img.resize(IMAGE_SIZE)
     img_array = np.array(pil_img) / 255.
-    print(img_array.shape)
-    #img_array = np.reshape(img_array, IMAGE_SIZE)
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     return img_array
 
@@ -79,17 +74,22 @@ def output_counts(content, file_name) -> list:
                     [
                         html.H3(file_name),
                         html.Img(
-                            src=content, style={"maxWidth": "80%", "marginTop": "20px"}
+                            src=content, style={"maxWidth": "75%", "marginTop": "20px"}
                         ),
                     ],
                     width=6,
                 ),
                 dbc.Col(
                     [
-                        html.H5(f"True count = {true_count}", style={'color':'navy', 'fontWeight': 'bold'}),
-                        html.H5(f"Model count = {model_count}", style={'color':'red', 'fontWeight': 'bold'}),
+                        html.H4(f"True count = {true_count}", style={'color':'navy', 'fontWeight': 'bold'}),
+                        html.H4(f"Model count = {model_count}", style={'color':'red', 'fontWeight': 'bold'}),
                     ],
-                    width=3
+                    width=3,
+                    style={'backgroundColor':'#f5f5f5',
+                           "border": "1px solid",
+                            "padding": "20px",
+                            "borderRadius": "10px"
+                            }
                 ),
             ],
             justify='center',

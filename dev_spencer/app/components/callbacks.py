@@ -1,4 +1,4 @@
-from dash import Input, Output, State, callback, html
+from dash import Input, Output, callback, html
 import ids
 from components.utils_components import output_counts
 
@@ -11,15 +11,20 @@ from components.utils_components import output_counts
 
 def update_output(content, filename):
     if content is None:
-        return html.Div('Upload an image to begin')
+        return html.Div('Upload an image to begin (.jpg or .png only)',
+                        style={"textAlign": "center"}
+                        )
     
-    #acceptable_types = ['jpeg', 'jpg', 'png']
+    file_ext = filename.split('.')[-1]
+    acceptable_types = ['jpeg', 'jpg', 'png']
+
+    if file_ext.lower() not in acceptable_types:
+        return html.Div(f'Invalid file type: {file_ext}. Only jpg or png images are accepted.',
+                        style={"textAlign": "center"}
+                        )
+    
     children = output_counts(content, filename)
 
     return children
 
-    # return html.Div([
-    #             html.H5(filename),
-    #             html.Img(src=content, style={"maxWidth": "100%", "marginTop": "20px"})
-    #         ])
 
